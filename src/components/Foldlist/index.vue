@@ -20,21 +20,25 @@
     export default {
         data() {
             return {
-                more: false,
-                isClose: true
+                more: false,// 更多按钮展示
+                isClose: true // 手风琴列表是否被折叠
             }
         },
         mounted() {
+            // 展开与收起的容器
             this.foldbox = this.$refs.foldbox;
+            // 用于计算所有项目的总高度；
             this.foldlist = this.$refs.foldlist;
-
-            let lis = this.foldlist.childNodes;
-            let len = [].filter.call(lis, item => item.nodeType ===1 ).length;
-
+            // 所有的列表项（元素节点）
+            let lis = [].filter.call(this.foldlist.childNodes, item => item.nodeType === 1)
+            let len = lis.length;
+            
             if (len > 3) {
+                // 如果项目的总数大于3，累加前两个项目的高度
+                this.initHeight = lis.slice(0, 2).reduce((x, y) => x.offsetHeight + y.offsetHeight);
+                this.foldbox.setAttribute('style', 'height:' + this.initHeight + 'px');
                 this.more = true;
             }
-            
         },
         methods: {
             fold() {
@@ -42,7 +46,8 @@
                     this.foldbox.setAttribute('style','height:' + this.foldlist.offsetHeight + 'px');
                 }
                 else {
-                    this.foldbox.removeAttribute('style');
+                    this.foldbox.setAttribute('style', 'height:' + this.initHeight + 'px');
+                    // this.foldbox.removeAttribute('style');
                 }
 
                 this.isClose = !this.isClose;
@@ -81,7 +86,7 @@
             font-size: remfun(28);
             line-height: remfun(44);
             color: #666;
-            box-shadow: 2px 2px 2px #E6E6E6;
+            box-shadow: 0 2px 2px #E6E6E6;
 
             .fold-icon-more {
                 display: inline-block;
