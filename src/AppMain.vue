@@ -9,7 +9,7 @@
                 </t-folditem>
             </t-foldlist>
         </div>
-        <t-popup v-model="isPopup" popup-transtion="popup-opacity">
+        <t-popup v-model="isPopup" popup-transtion="popup-slide-bottom">
             <h1>标题一</h1>
             <h2>标题2</h2>
         </t-popup>

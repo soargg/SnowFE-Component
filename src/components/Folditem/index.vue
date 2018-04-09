@@ -3,7 +3,11 @@
         <slot />
     </div>
 </template>
-
+<script>
+    export default {
+        name: 'Folditem'
+    };
+</script>
 <style lang="scss" scoped>
     @function remfun($number) {
         @return ($number / 75) + rem

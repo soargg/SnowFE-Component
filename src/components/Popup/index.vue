@@ -1,10 +1,12 @@
 <template>
     <div class="popup">
-        <transition :name="popupName">
-            <div class="popup-overlay-container" v-show="value" @click.self="handleClick">
-                <div class="popup-content">
-                    <slot />
-                </div>
+        <transition name="overlay">
+            <div v-show="value" @click.self="handleClick" class="popup-overlay-container">
+                <transition :name="popupName">
+                    <div v-show="value" class="popup-content">
+                        <slot />
+                    </div>
+                </transition>
             </div>
         </transition>
     </div>
@@ -59,14 +61,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all .3s ease-out;
 
             .popup-content {
                 width: 85%;
                 height: 85%;
-                background-color: #fff;
+                background-color: #fff; 
+                transition: all .3s ease-out;
             }
         }
+    }
+
+    .overlay-leave-to {
+        transition: all 0s .4s;
     }
 
     // 默认

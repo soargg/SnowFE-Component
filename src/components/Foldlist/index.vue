@@ -18,6 +18,7 @@
 <script>
     import Icon from '../Icon';
     export default {
+        name: 'Foldlist',
         data() {
             return {
                 more: false,// 更多按钮展示
