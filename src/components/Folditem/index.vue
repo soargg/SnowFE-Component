@@ -10,6 +10,7 @@
     }
 
     .list-item {
+        display: -webkit-flex;
         display: flex;
         flex-flow:row nowrap;
         height: remfun(60);

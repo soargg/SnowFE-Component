@@ -5,7 +5,7 @@
                 <slot />
             </div>
         </div>
-        <div class="fold-item fold-more" @click="fold" v-show="more">
+        <div class="fold-more" @click="fold" v-show="more">
             <span v-show="!isClose">收起</span>
             <span v-show="isClose">更多</span>
             <span class="fold-icon-more" :class="{'fold-icon-more-up': !isClose}">

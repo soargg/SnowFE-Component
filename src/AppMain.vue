@@ -9,27 +9,12 @@
                 </t-folditem>
             </t-foldlist>
         </div>
-        <div class="box">
-            <t-foldlist>
-                <t-folditem v-for="i in 1" :key="i" class="item">
-                    {{ i }}
-                </t-folditem>
-            </t-foldlist>
-        </div>
-        <div class="box">
-            <t-foldlist>
-                <t-folditem v-for="i in 3" :key="i" class="item">
-                    {{ i }}
-                </t-folditem>
-            </t-foldlist>
-        </div>
-        <div class="box">
-            <t-foldlist>
-                <t-folditem v-for="i in 4" :key="i" class="item">
-                    {{ i }}
-                </t-folditem>
-            </t-foldlist>
-        </div>
+        <t-popup v-model="isPopup" popup-transtion="popup-opacity">
+            <h1>标题一</h1>
+            <h2>标题2</h2>
+        </t-popup>
+
+        <button @click="isPopup = true">click</button>
     </div>
 </template>
 
@@ -37,14 +22,25 @@
     import Icon from './components/Icon';
     import Foldlist from './components/Foldlist';
     import Folditem from './components/Folditem';
+    // 弹窗
+    import Poppup from './components/Popup';
+
     export default {
         data() {
-            return {};
+            return {
+                isPopup: false
+            };
+        },
+        methods: {
+            closeHandle() {
+                alert('close');
+            }
         },
         components: {
             't-icon': Icon,
             't-foldlist': Foldlist,
-            't-folditem': Folditem
+            't-folditem': Folditem,
+            't-popup': Poppup
         }
     };
 </script>
