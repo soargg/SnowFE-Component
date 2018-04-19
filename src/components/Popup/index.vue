@@ -36,7 +36,7 @@
         methods: {
             handleClick() {
                 this.$emit('input', false);
-                // 出发关闭事件
+                // 触发关闭事件
                 this.$emit('close');
             }
         }
@@ -72,7 +72,8 @@
     }
 
     .overlay-leave-to {
-        transition: all 0s .4s;
+        -webkit-transition: all 0s .3s;
+        transition: all 0s .3s;
     }
 
     // 默认

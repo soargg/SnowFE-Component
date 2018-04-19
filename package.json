@@ -10,6 +10,8 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "cube-ui": "^1.7.3",
+    "dom-to-image": "^2.6.0",
     "file-loader": "^1.1.11",
     "vue": "^2.5.11"
   },

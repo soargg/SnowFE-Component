@@ -9,12 +9,20 @@
                 </t-folditem>
             </t-foldlist>
         </div>
-        <t-popup v-model="isPopup" popup-transtion="popup-slide-bottom">
+        <t-popup v-model="isPopup" popup-transtion="popup-scale">
             <h1>标题一</h1>
             <h2>标题2</h2>
         </t-popup>
 
-        <button @click="isPopup = true">click</button>
+        <button @click="isPopup = true" class="btn">click</button>
+        <button @click="dom2image" class="btn">DOMtoIMAGE</button>
+
+        <div id="toast"></div>
+
+        <div ref='toImg' class="img-box">
+            <img src="./assets/img/1.png" alt="">
+            <div class="text">稻香村</div>
+        </div>
     </div>
 </template>
 
@@ -25,15 +33,39 @@
     // 弹窗
     import Poppup from './components/Popup';
 
+    import Toast from './components/Toast';
+
+    import toast from './components/Toast/toast.vue';
+
+    // toImage插件
+    import domtoimage from 'dom-to-image';
+
     export default {
         data() {
             return {
                 isPopup: false
             };
         },
+        mounted() {
+        },
         methods: {
-            closeHandle() {
-                alert('close');
+            handleClick() {
+                Toast({
+                    text: '您没有获得奖品',
+                    duration: 2000,
+                    position: 'middle'
+                });
+            },
+            dom2image() {
+                let node = this.$refs.toImg;
+                node.style.transform = 'scale(3)';
+
+                domtoimage.toPng(node, {
+                    
+                }).then(dataUrl => {
+                    console.log(dataUrl);
+                    node.style.transform = 'scale(1)';
+                })
             }
         },
         components: {
@@ -58,6 +90,26 @@
 
         .item {
             padding-left: remfun(20);
+        }
+    }
+    .btn {
+            width: remfun(200);
+            height: remfun(60);
+        }
+
+    .img-box {
+        position: relative;
+        img {
+            width: 100%;
+        }
+        .text {
+            position: absolute;
+            left: remfun(150);
+            top: remfun(180);
+            font-size:remfun(40);
+            color: black;
+            font-weight: bold;
+
         }
     }
 </style>
