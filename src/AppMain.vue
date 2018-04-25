@@ -72,6 +72,7 @@
 
         .item {
             padding-left: remfun(20);
+            border-bottom: 1px solid #E6e6e6
         }
     }
     .btn {

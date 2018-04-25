@@ -6,8 +6,8 @@
             </div>
         </div>
         <div class="fold-more" @click="fold" v-show="more">
-            <span v-show="!isClose">收起</span>
-            <span v-show="isClose">更多</span>
+            <span v-show="!isClose">收起全部</span>
+            <span v-show="isClose">展开全部</span>
             <span class="fold-icon-more" :class="{'fold-icon-more-up': !isClose}">
                 <t-icon type="more_unfold"/>
             </span>
@@ -19,6 +19,12 @@
     import Icon from '../Icon';
     export default {
         name: 'Foldlist',
+        props: {
+            initialNumber: {
+                type: Number,
+                default: 2
+            }
+        },
         data() {
             return {
                 more: false,// 更多按钮展示
@@ -36,7 +42,7 @@
             
             if (len > 3) {
                 // 如果项目的总数大于3，累加前两个项目的高度
-                this.initHeight = lis.slice(0, 2).reduce((x, y) => x.offsetHeight + y.offsetHeight);
+                this.initHeight = lis.slice(0, this.initialNumber).reduce((x, y) => x.offsetHeight + y.offsetHeight);
                 this.foldbox.setAttribute('style', 'height:' + this.initHeight + 'px');
                 this.more = true;
             }
@@ -50,7 +56,6 @@
                     this.foldbox.setAttribute('style', 'height:' + this.initHeight + 'px');
                     // this.foldbox.removeAttribute('style');
                 }
-
                 this.isClose = !this.isClose;
             }
         },
@@ -67,27 +72,23 @@
     
     .fold-container {
         background-color: #ffffff;
-        border-top: 1px solid #E6E6E6;
 
         .fold-box {
             padding: remfun(8) 0;
-            -webkit-transition: height .5s;
-            transition: height .5s;
+            -webkit-transition: height .4s;
+            transition: height .4s;
 
             &.folded {
-                height: remfun(120);
                 overflow: hidden;
             }
         }
 
         .fold-more {
-            padding: remfun(8) 0;
-            border-top: 1px solid #E6E6E6;
+            padding: remfun(30) 0;
             text-align: center;
-            font-size: remfun(28);
-            line-height: remfun(44);
-            color: #666;
-            box-shadow: 0 2px 2px #E6E6E6;
+            font-size: remfun(26);
+            line-height: remfun(37);
+            color: #999;
 
             .fold-icon-more {
                 display: inline-block;

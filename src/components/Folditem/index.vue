@@ -14,15 +14,12 @@
     }
 
     .list-item {
+        width: auto;
         display: -webkit-flex;
         display: flex;
-        flex-flow:row nowrap;
-        height: remfun(60);
-        padding: remfun(6) 0;
+        flex-flow: row nowrap;
+        padding: remfun(5) 0;
         box-sizing: border-box;
-        font-size: remfun(28);
-        line-height: remfun(44);
-        overflow: hidden;
-        background-color: #ffffff;        
+        overflow: hidden;      
     }
 </style>
