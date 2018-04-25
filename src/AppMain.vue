@@ -9,20 +9,15 @@
                 </t-folditem>
             </t-foldlist>
         </div>
-        <t-popup v-model="isPopup" popup-transtion="popup-scale">
-            <h1>标题一</h1>
-            <h2>标题2</h2>
+        <t-popup v-model="isPopup" popup-transtion="popup-slide-top" popup-position="bottom" :to-block="true">
+            <div class="bg-white">
+                <h1>标题一</h1>
+                <h2>标题2</h2>
+            </div>
         </t-popup>
 
         <button @click="isPopup = true" class="btn">click</button>
-        <button @click="dom2image" class="btn">DOMtoIMAGE</button>
-
-        <div id="toast"></div>
-
-        <div ref='toImg' class="img-box">
-            <img src="./assets/img/1.png" alt="">
-            <div class="text">稻香村</div>
-        </div>
+        <button @click="handleClick" class="btn">Toast</button>
     </div>
 </template>
 
@@ -37,9 +32,6 @@
 
     import toast from './components/Toast/toast.vue';
 
-    // toImage插件
-    import domtoimage from 'dom-to-image';
-
     export default {
         data() {
             return {
@@ -51,22 +43,12 @@
         methods: {
             handleClick() {
                 Toast({
-                    text: '您没有获得奖品',
+                    text: '不要再点了，再点也没用！！！',
                     duration: 2000,
                     position: 'middle'
                 });
             },
-            dom2image() {
-                let node = this.$refs.toImg;
-                node.style.transform = 'scale(3)';
-
-                domtoimage.toPng(node, {
-                    
-                }).then(dataUrl => {
-                    console.log(dataUrl);
-                    node.style.transform = 'scale(1)';
-                })
-            }
+           
         },
         components: {
             't-icon': Icon,
@@ -84,7 +66,7 @@
     .container {
         background-color: #eeeeee;
     }
-
+    
     .box {
         margin-bottom: remfun(20);
 
@@ -93,9 +75,13 @@
         }
     }
     .btn {
-            width: remfun(200);
-            height: remfun(60);
-        }
+        width: remfun(200);
+        height: remfun(60);
+    }
+
+    .bg-white {
+        background-color: #fff;
+    }
 
     .img-box {
         position: relative;
@@ -109,7 +95,6 @@
             font-size:remfun(40);
             color: black;
             font-weight: bold;
-
         }
     }
 </style>

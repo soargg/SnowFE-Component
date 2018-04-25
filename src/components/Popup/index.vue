@@ -1,9 +1,15 @@
 <template>
     <div class="popup">
         <transition name="overlay">
-            <div v-show="value" @click.self="handleClick" class="popup-overlay-container">
+            <div v-show="value" @click.self="handleClick" class="popup-overlay-container"
+                :class="{
+                   'popup-position-top': popupPosition === 'top',
+                   'popup-position-bottom': popupPosition === 'bottom',
+                   'popup-position-left': popupPosition === 'left',
+                   'popup-position-right': popupPosition === 'right',
+                }">
                 <transition :name="popupName">
-                    <div v-show="value" class="popup-content">
+                    <div v-show="value" class="popup-content" :style="{'width': width}">
                         <slot />
                     </div>
                 </transition>
@@ -24,13 +30,22 @@
                 type: String,
                 default: ''
             },
+            popupPosition: {// popup出现的位置
+                type: String,
+                default: ''
+            },
+            toBlock: {// popup出现的位置
+                type: Boolean,
+                default: false
+            },
             close: {
                 type: Function
             }
         },
         data() {
             return {
-                popupName: this.popupTranstion
+                popupName: this.popupTranstion,
+                width: this.toBlock? '100%' : 'auto'
             };
         },
         methods: {
@@ -53,7 +68,7 @@
             height: 100%;
             left: 0;
             top: 0;
-            background-color: rgba(0, 0, 0, .5);
+            background-color: rgba(0, 0, 0, .4);
             display: -webkit-box;
             -webkit-box-align: center;
             -webkit-box-pack: center;
@@ -62,9 +77,24 @@
             align-items: center;
             justify-content: center;
 
+            &.popup-position-top {
+                -webkit-box-align: start;
+                align-items: flex-start;
+            }
+            &.popup-position-bottom {
+                -webkit-box-align: end;
+                align-items: flex-end;
+            }
+            &.popup-position-left {
+                -webkit-box-pack: start;
+                justify-content: flex-start;
+            }
+            &.popup-position-right {
+                -webkit-box-pack: end;
+                justify-content: flex-end;
+            }
+
             .popup-content {
-                width: 85%;
-                height: 85%;
                 background-color: #fff; 
                 transition: all .3s ease-out;
             }
