@@ -1,6 +1,8 @@
 <template>
     <div class="fold-container">
-        <div class="fold-box" ref="foldbox" :class="{'folded': more}">
+        <div class="fold-box" ref="foldbox" :class="{'folded': more}" :style="{
+            'height': boxHeight + 'px'
+        }">
             <div ref="foldlist">
                 <slot />
             </div>
@@ -16,10 +18,13 @@
 </template>
 
 <script>
-    import Icon from '../Icon';
     export default {
         name: 'Foldlist',
         props: {
+            sideBySide: {
+                type: Number,
+                default: 1
+            },
             initialNumber: {
                 type: Number,
                 default: 2
@@ -28,39 +33,60 @@
         data() {
             return {
                 more: false,// 更多按钮展示
-                isClose: true // 手风琴列表是否被折叠
+                isClose: true, // 手风琴列表是否被折叠
+                boxHeight: 0,
+                child: 0
+            }
+        },
+        watch: {
+            child(curVal, oldVal) {
+                this.resize();
+                if (!this.isClose) {
+                    this.isClose = true;
+                }
             }
         },
         mounted() {
-            // 展开与收起的容器
-            this.foldbox = this.$refs.foldbox;
             // 用于计算所有项目的总高度；
             this.foldlist = this.$refs.foldlist;
-            // 所有的列表项（元素节点）
-            let lis = [].filter.call(this.foldlist.childNodes, item => item.nodeType === 1)
-            let len = lis.length;
-            
-            if (len > 3) {
-                // 如果项目的总数大于3，累加前两个项目的高度
-                this.initHeight = lis.slice(0, this.initialNumber).reduce((x, y) => x.offsetHeight + y.offsetHeight);
-                this.foldbox.setAttribute('style', 'height:' + this.initHeight + 'px');
-                this.more = true;
-            }
+            this.maxHeight = this.foldlist.offsetHeight;
+            this.resize();
+        },
+        updated() {
+            this.child = [].slice.call(this.foldlist.querySelectorAll('.tal-fold-list-item')).length;
         },
         methods: {
             fold() {
                 if (this.isClose) {
-                    this.foldbox.setAttribute('style','height:' + this.foldlist.offsetHeight + 'px');
+                    this.boxHeight = this.maxHeight;
                 }
                 else {
-                    this.foldbox.setAttribute('style', 'height:' + this.initHeight + 'px');
-                    // this.foldbox.removeAttribute('style');
+                    this.boxHeight = this.initHeight;
                 }
                 this.isClose = !this.isClose;
+            },
+            resize() {
+                this.$nextTick(() => {
+                    // 计算出其中一个项目的高
+                    let itemHeight = this.foldlist.querySelector('.tal-fold-list-item').offsetHeight;
+
+                    let h = this.initialNumber * itemHeight;
+                    let lis = [].slice.call(this.foldlist.querySelectorAll('.tal-fold-list-item'));
+                    let len = lis.length;
+
+                    if (len > this.initialNumber) {
+                        // 如果项目的总数大于3,计算初始高度
+                        h = this.initialNumber * itemHeight;
+                        this.more = true;
+                        this.initHeight = h;
+                        this.$refs.foldbox.setAttribute('style', 'height: '+ h +'px;');
+                    }else {
+                        this.more = false;
+                        this.$refs.foldbox.setAttribute('style', 'height: auto;');
+                    }
+                    this.maxHeight = len * itemHeight;
+                });
             }
-        },
-        components: {
-            't-icon': Icon
         },
     };
 </script>
@@ -74,9 +100,10 @@
         background-color: #ffffff;
 
         .fold-box {
-            padding: remfun(8) 0;
-            -webkit-transition: height .4s;
-            transition: height .4s;
+            -webkit-transition: height .8s ease;
+            transition: height .8s ease;
+            transform: translateZ(0);
+            padding-bottom:remfun(30);
 
             &.folded {
                 overflow: hidden;
@@ -84,7 +111,7 @@
         }
 
         .fold-more {
-            padding: remfun(30) 0;
+            padding-bottom:remfun(30);
             text-align: center;
             font-size: remfun(26);
             line-height: remfun(37);
