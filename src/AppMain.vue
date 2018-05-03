@@ -4,7 +4,7 @@
         <t-icon type="4column"/>
         <div class="box">
             <t-foldlist>
-                <t-folditem v-for="i in 5" :key="i" class="item">
+                <t-folditem v-for="i in 15" :key="i" class="item">
                     {{ i }}
                 </t-folditem>
             </t-foldlist>
@@ -18,6 +18,9 @@
 
         <button @click="isPopup = true" class="btn">click</button>
         <button @click="handleClick" class="btn">Toast</button>
+        <div class="box">
+
+        </div>
     </div>
 </template>
 
@@ -97,5 +100,10 @@
             color: black;
             font-weight: bold;
         }
+    }
+
+    .box {
+        height: 1500px;
+        background-color: aqua;
     }
 </style>

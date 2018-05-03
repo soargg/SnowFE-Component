@@ -1,5 +1,5 @@
 <template>
-    <div class="list-item">
+    <div class="list-item  tal-fold-list-item">
         <slot />
     </div>
 </template>

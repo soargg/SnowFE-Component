@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import tIcon from '../Icon'
     export default {
         name: 'Foldlist',
         props: {
@@ -35,7 +36,8 @@
                 more: false,// 更多按钮展示
                 isClose: true, // 手风琴列表是否被折叠
                 boxHeight: 0,
-                child: 0
+                child: 0,
+                top: 0
             }
         },
         watch: {
@@ -58,9 +60,11 @@
         methods: {
             fold() {
                 if (this.isClose) {
+                    this.top = this.foldlist.offsetTop;
                     this.boxHeight = this.maxHeight;
                 }
                 else {
+                    window.scrollTo(0, this.top);
                     this.boxHeight = this.initHeight;
                 }
                 this.isClose = !this.isClose;
@@ -88,6 +92,9 @@
                 });
             }
         },
+        components: {
+            tIcon
+        }
     };
 </script>
 
