@@ -105,12 +105,12 @@
     
     .fold-container {
         background-color: #ffffff;
+        padding-bottom:remfun(30);
 
         .fold-box {
             -webkit-transition: height .8s ease;
             transition: height .8s ease;
             transform: translateZ(0);
-            padding-bottom:remfun(30);
 
             &.folded {
                 overflow: hidden;
@@ -118,7 +118,7 @@
         }
 
         .fold-more {
-            padding-bottom:remfun(30);
+            padding-top: remfun(30);
             text-align: center;
             font-size: remfun(26);
             line-height: remfun(37);
