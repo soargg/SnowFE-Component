@@ -16,7 +16,7 @@
             </div>
         </t-popup>
 
-        <button @click="isPopup = true" class="btn">click</button>
+        <button @click="isPopup = true" class="btn">Poppup</button>
         <button @click="handleClick" class="btn">Toast</button>
         <div class="box">
 
@@ -29,11 +29,9 @@
     import Foldlist from './components/Foldlist';
     import Folditem from './components/Folditem';
     // 弹窗
-    import Poppup from './components/Popup';
+    // import Popup from './components/Popup/index.vue';
 
     import Toast from './components/Toast';
-
-    import toast from './components/Toast/toast.vue';
 
     export default {
         data() {
@@ -57,7 +55,6 @@
             't-icon': Icon,
             't-foldlist': Foldlist,
             't-folditem': Folditem,
-            't-popup': Poppup
         }
     };
 </script>
@@ -103,7 +100,6 @@
     }
 
     .box {
-        height: 1500px;
         background-color: aqua;
     }
 </style>
