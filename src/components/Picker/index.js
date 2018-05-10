@@ -17,6 +17,10 @@ const Picker = (options = {}) => {
     document.body.appendChild(pickerInstance.$el);
 
     return pickerInstance;
+};
+// 用于 Vue 对象全局绑定。
+Picker.install = (Vue) => {
+    Vue.prototype.$Picker = Picker;
 }
 
 export default Picker;

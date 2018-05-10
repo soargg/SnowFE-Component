@@ -1,7 +1,7 @@
-import Popup from './index.vue';
+import Popup from './popup.vue';
 
-export default {
-    install(Vue) {
-        Vue.component('tPopup', Popup);
-    }
+Popup.install = (Vue) => {
+    Vue.component('tPopup', Popup);
 }
+
+export default Popup;

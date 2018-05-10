@@ -30,7 +30,7 @@
     import Foldlist from './components/Foldlist';
     import Folditem from './components/Folditem';
     // 弹窗
-    // import Popup from './components/Popup/index.vue';
+    import Popup from './components/Popup';
 
     import Toast from './components/Toast';
     import Picker from './components/Picker';
@@ -42,7 +42,7 @@
             };
         },
         mounted() {
-            this.$picker = Picker({
+            this.picker = Picker({
                 title: '日期Picker',
                 data: [
                     {text: '一年级1班', value: '1'},
@@ -74,13 +74,14 @@
                 });
             },
             handlePicker() {
-                this.$picker.show();
+                this.picker.show();
             }
         },
         components: {
             't-icon': Icon,
             't-foldlist': Foldlist,
             't-folditem': Folditem,
+            't-popup': Popup
         }
     };
 </script>
