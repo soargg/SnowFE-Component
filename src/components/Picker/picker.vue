@@ -1,7 +1,7 @@
 <template>
     <div>
         <transition name="overlay">
-            <div v-show="isPop"  @click.self="handleCancel" class="overlay-container" @touchmove.stop>
+            <div v-show="isPop"  @click.self="handleCancel" class="overlay-container" @touchmove.prevent>
                 <transition name="picker-slide-top">
                     <div class="tal-picker-container" v-show="isPop">
                         <div class="picker-options">
@@ -43,7 +43,13 @@ export default {
                 scrollX: false,
                 scrollY: true,
                 click: true,
-                startY: 0
+                startY: 0,
+                momentum: false,
+                snap: {
+                    loop: this.loop,
+                    threshold: .3,
+                    speed: 400
+                },
             })
         });
     },
