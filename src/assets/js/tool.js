@@ -41,7 +41,7 @@ var _ = {
         querystring = (querystring!== undefined) ? querystring : q;
         
         // 获取查询字符串数组
-        var queryArr = querystring.match(new RegExp("[^\?\&]+=[^\?\&]+","g"));
+        var queryArr = querystring.match(new RegExp('[^\?\&]+=[^\?\&]+', 'g'));
         if (queryArr != null) {
             queryArr.forEach(function(item, index) {
                 var temp = decodeURIComponent(item).split('=');
