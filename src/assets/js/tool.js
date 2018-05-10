@@ -2,15 +2,11 @@ var _ = {
     getCookieAll: function() { // 获取到所有的cookie,返回一个对象。
         var obj = {};
         document.cookie.split(';').forEach(function(item, index) {
-            var cookieStr = _.trim(item);
+            var cookieStr = decodeURIComponent(_.trim(item));
             if( cookieStr !== '') {
                 var temp = cookieStr.split('=');
-                var str = decodeURIComponent(temp[1]);
-                if (/^\{|^\[/.test(str) && /\}$|\]$/.test(str)) { // 存在对象或数组
-                    obj[temp[0]] = JSON.parse(str);
-                }else {
-                    obj[temp[0]] = str;
-                }
+                var str = temp[1];
+                obj[temp[0]] = (/^\{|^\[/.test(str) && /\}$|\]$/.test(str)) ? JSON.parse(str) : str;
             };
         });
 
@@ -34,7 +30,25 @@ var _ = {
         }
         document.cookie = cookieStr;
     },
-    trim: function(str) {
+    trim: function(str) {// 移除首尾空格
         return str.replace(/^\s+|\s+$/gm, '');
+    },
+    parseQuery: function(querystring) {// 解析查询字符串
+        var obj = {};
+        var queryArr = null;
+        // 如果锚点放在查询字符串之后,使用search
+        var q = window.location.search ? window.location.search : window.location.hash;
+        querystring = (querystring!== undefined) ? querystring : q;
+        
+        // 获取查询字符串数组
+        var queryArr = querystring.match(new RegExp("[^\?\&]+=[^\?\&]+","g"));
+        if (queryArr != null) {
+            queryArr.forEach(function(item, index) {
+                var temp = decodeURIComponent(item).split('=');
+                var str = temp[1];
+                obj[temp[0]] = (/^\{|^\[/.test(str) && /\}$|\]$/.test(str)) ? JSON.parse(str) : str;
+            });
+        }
+        return obj;
     }
 }
