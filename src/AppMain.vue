@@ -18,6 +18,7 @@
 
         <button @click="isPopup = true" class="btn">Poppup</button>
         <button @click="handleClick" class="btn">Toast</button>
+        <button @click="handlePicker" class="btn">Picker</button>
         <div class="box">
 
         </div>
@@ -32,6 +33,7 @@
     // import Popup from './components/Popup/index.vue';
 
     import Toast from './components/Toast';
+    import Picker from './components/Picker';
 
     export default {
         data() {
@@ -40,6 +42,14 @@
             };
         },
         mounted() {
+            this.$picker = Picker({
+                title: '日期Picker',
+                onCancel() {
+                    Toast({
+                        text: '取消了'
+                    })
+                }
+            });
         },
         methods: {
             handleClick() {
@@ -49,7 +59,9 @@
                     position: 'middle'
                 });
             },
-           
+            handlePicker() {
+                this.$picker.show();
+            }
         },
         components: {
             't-icon': Icon,
