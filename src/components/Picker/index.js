@@ -10,6 +10,8 @@ const Picker = (options = {}) => {
     });
     // picker 标题
     pickerInstance.title = options.title || '';
+    pickerInstance.items = (Object.prototype.toString.call(options.data) == '[object Array]') ? options.data : [];
+    pickerInstance.select = options.onSelect;
     pickerInstance.cancel = options.onCancel;
 
     document.body.appendChild(pickerInstance.$el);
