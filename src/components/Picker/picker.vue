@@ -1,7 +1,7 @@
 <template>
     <div>
         <transition name="overlay">
-            <div v-show="isPop"  @click.self="handleCancel" class="overlay-container" @touchmove.prevent>
+            <div v-show="isPop"  @click.self="handleCancel" class="overlay-container" @touchmove.self.prevent>
                 <transition name="picker-slide-top">
                     <div class="tal-picker-container" v-show="isPop">
                         <div class="picker-options">
@@ -77,6 +77,7 @@ export default {
             typeof this.cancel === 'function' && this.cancel();
         },
         handleConfirm() {// 确认
+            if (this.items.length <= 0) return;
             let index = this.scroll.getSelectedIndex() || this.selectedIndex;
             let text = this.items[index].text;
             let value = this.items[index].value;

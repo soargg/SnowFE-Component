@@ -127,6 +127,7 @@
     }
 
     .box {
+        height: 600px;
         background-color: aqua;
     }
 </style>
