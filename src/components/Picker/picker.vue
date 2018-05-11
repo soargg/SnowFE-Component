@@ -148,7 +148,7 @@ export default {
                     top: 0;
                     left: 0;
                     transform: translateY(-100%);
-                    background: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .1));
+                    background: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .5));
                     z-index: 10;
                     border-bottom: remfun(1) solid #DFDFDF; 
                 }
@@ -160,7 +160,7 @@ export default {
                     bottom: 0;
                     left: 0;
                     transform: translateY(100%);
-                    background: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .9));
+                    background: linear-gradient(rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
                     z-index: 10;
                     border-top: remfun(1) solid #DFDFDF; 
                 }
