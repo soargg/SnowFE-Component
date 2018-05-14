@@ -3,7 +3,7 @@
         <div class="fold-box" ref="foldbox" :class="{'folded': more}" :style="{
             'height': boxHeight + 'px'
         }">
-            <div ref="foldlist">
+            <div ref="foldlist" id="foldlist">
                 <slot />
             </div>
         </div>
@@ -51,7 +51,6 @@
         mounted() {
             // 用于计算所有项目的总高度；
             this.foldlist = this.$refs.foldlist;
-            this.maxHeight = this.foldlist.offsetHeight;
             this.resize();
         },
         updated() {
@@ -61,7 +60,8 @@
             fold() {
                 if (this.isClose) {
                     this.top = this.foldlist.offsetTop;
-                    this.boxHeight = this.maxHeight;
+                    // 遮挡层的高度等于内容的的总高度
+                    this.boxHeight = this.foldlist.offsetHeight;
                 }
                 else {
                     window.scrollTo(0, this.top);
@@ -79,7 +79,7 @@
                     let len = lis.length;
 
                     if (len > this.initialNumber) {
-                        // 如果项目的总数大于3,计算初始高度
+                        // 如果项目的总数大于初始,计算初始高度
                         h = this.initialNumber * itemHeight;
                         this.more = true;
                         this.initHeight = h;
@@ -88,7 +88,6 @@
                         this.more = false;
                         this.$refs.foldbox.setAttribute('style', 'height: auto;');
                     }
-                    this.maxHeight = len * itemHeight;
                 });
             }
         },

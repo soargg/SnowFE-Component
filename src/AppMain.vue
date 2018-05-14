@@ -3,8 +3,8 @@
         <h1>Hello World!!</h1>
         <t-icon type="4column"/>
         <div class="box">
-            <t-foldlist>
-                <t-folditem v-for="i in 15" :key="i" class="item">
+            <t-foldlist :initial-number='5'>
+                <t-folditem v-for="i in 5" :key="i" class="item">
                     {{ i }}
                 </t-folditem>
             </t-foldlist>
