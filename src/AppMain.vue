@@ -43,7 +43,7 @@
         },
         mounted() {
             this.picker = Picker({
-                title: '日期Picker',
+                title: '请选择班级',
                 data: [
                     {text: '一年级1班', value: '1'},
                     {text: '一年级2班', value: '2'},
@@ -124,10 +124,5 @@
             color: black;
             font-weight: bold;
         }
-    }
-
-    .box {
-        height: 600px;
-        background-color: aqua;
     }
 </style>
