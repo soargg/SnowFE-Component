@@ -50,5 +50,30 @@ var _ = {
             });
         }
         return obj;
+    },
+    getRGB: function(str) {// 将16进制的颜色转换成 10进制 rgb
+        // 检测是否是16进制颜色值
+        var RGB = {};
+        var reg = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+        if (str && reg.test(str)) {
+            var colorStr = str.toLowerCase();
+            if (colorStr.length === 4) {
+                var tmpArr = ['#'];
+                colorStr.split('').slice(1).forEach(function(item) {
+                    tmpArr.push(item, item);
+                });
+                colorStr = tmpArr.join('');
+            }
+            var rgb = [];
+            for(let i = 1; i < 7; i += 2) {
+                rgb.push(parseInt('0x' + colorStr.substr(i, 2), 16));
+            }
+            RGB = {
+                R: rgb[0],
+                G: rgb[1],
+                B: rgb[2]
+            }
+        }
+        return RGB;
     }
 }

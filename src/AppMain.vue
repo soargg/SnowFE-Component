@@ -1,6 +1,11 @@
 <template>
     <div class="container">
-        <h1>Hello World!!</h1>
+        <h4>Hello World!!</h4>
+        <div class="inp-wrap">
+            屏宽：<input type="number" placeholder="屏幕宽度" v-model="screenW" class="inp"><br>
+            计算值：<input type="text" v-model="initSize" class="inp">
+            <h4>结果：{{ compuSize }}</h4>
+        </div>
         <t-icon type="4column"/>
         <div class="box">
             <t-foldlist :initial-number='5'>
@@ -38,8 +43,15 @@
     export default {
         data() {
             return {
-                isPopup: false
+                isPopup: false,
+                initSize: 0,
+                screenW: 414
             };
+        },
+        computed: {
+            compuSize() {
+                return Math.floor(this.screenW * this.initSize / 750);
+            }
         },
         mounted() {
             this.picker = Picker({
@@ -123,6 +135,15 @@
             font-size:remfun(40);
             color: black;
             font-weight: bold;
+        }
+    }
+
+    .inp-wrap {
+        margin: remfun(25) 0;
+        font-size: remfun(38);
+        .inp {
+            height: remfun(50);
+            border: 1px sol
         }
     }
 </style>
