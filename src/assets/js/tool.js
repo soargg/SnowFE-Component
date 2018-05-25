@@ -1,3 +1,9 @@
+/*
+ *   {\__/}
+ *   ( •-•)
+ *   /つ 要不要用一下tool.js
+ */
+
 var _ = {
     getCookieAll: function() { // 获取到所有的cookie,返回一个对象。
         var obj = {};
@@ -53,7 +59,6 @@ var _ = {
     },
     getRGB: function(str) {// 将16进制的颜色转换成 10进制 rgb
         // 检测是否是16进制颜色值
-        var RGB = {};
         var reg = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
         if (str && reg.test(str)) {
             var colorStr = str.toLowerCase();
@@ -68,12 +73,13 @@ var _ = {
             for(let i = 1; i < 7; i += 2) {
                 rgb.push(parseInt('0x' + colorStr.substr(i, 2), 16));
             }
-            RGB = {
+            return {
                 R: rgb[0],
                 G: rgb[1],
                 B: rgb[2]
             }
+        } else {
+            return {};
         }
-        return RGB;
     }
 }
