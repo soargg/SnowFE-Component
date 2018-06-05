@@ -1,3 +1,8 @@
+/*
+ *   {\__/}
+ *   ( •-•)
+ *   /つ 封装一下Ajax.
+ */
 import axios from 'axios';
 import qs from 'qs';
 import { analysisUrl } from '../../appassets/javascript/utils';
@@ -10,13 +15,21 @@ const $ajax = {
     config: () => {},
     interceptRequest: (params) => {// params,数组或者对象
         let objParams = {}; // 请求之前追加的参数
-        if (toString.call(params) === '[object Array]') {
+        if (toString.call(params) === '[object Array]') {// params的类型为数组
             params.forEach((key) => {
-                objParams[key] = deCode(analysisUrl()[key]);
+                (analysisUrl()[key] !== undefined) && (objParams[key] = deCode(analysisUrl()[key]));
             });
-        }else {
+        }
+        else if (toString.call(params) === '[object String]') {// params的类型为字符串
+            (analysisUrl()[params] !== undefined) && (objParams[params] = deCode(analysisUrl()[params]));
+        }
+        else if (toString.call(params) === '[object Object]') {// params的类型为字符串的类型为对象
             objParams = params;
         }
+        else {
+            return;
+        }
+
         axios.interceptors.request.use(
             (config) => {
                 if(config.method === 'post') {
@@ -59,7 +72,7 @@ const $ajax = {
         .then((response) => {
             if (!response) return;
             if (response.data.code == 0) {
-                params.success(response.data);
+                (typeof params.success === 'function') && params.success(response.data);
             } else {
                 (typeof params.error === 'function') && params.error(response.data);
             }
@@ -83,7 +96,7 @@ const $ajax = {
         }).then((response) => {
             if (!response) return; // 没有返回数据时不在执行
             if (response.data.code == 0) {
-                params.success(response.data);
+                (typeof params.success === 'function') && params.success(response.data);
             } else {
                 (typeof params.error === 'function') && params.error(response.data);
             }
@@ -94,8 +107,6 @@ const $ajax = {
         Vue.prototype.$ajax = this;
     }
 }
-// 请求参数拦截
-$ajax.interceptRequest(['token', 'act_id']);
 
 // 请求返回拦截
 axios.interceptors.response.use(
