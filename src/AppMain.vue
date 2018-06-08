@@ -25,7 +25,7 @@
         <button @click="handleClick" class="btn">Toast</button>
         <button @click="handlePicker" class="btn">Picker</button>
         <div class="box">
-
+            <pro :rate="rate" :active="true" :standard="60"/>
         </div>
     </div>
 </template>
@@ -39,13 +39,15 @@
 
     import Toast from './components/Toast';
     import Picker from './components/Picker';
+    import pro from './components/Progress';
 
     export default {
         data() {
             return {
                 isPopup: false,
                 initSize: 0,
-                screenW: 414
+                screenW: 414,
+                rate: 58,
             };
         },
         computed: {
@@ -93,7 +95,8 @@
             't-icon': Icon,
             't-foldlist': Foldlist,
             't-folditem': Folditem,
-            't-popup': Popup
+            't-popup': Popup,
+            pro
         }
     };
 </script>
@@ -103,11 +106,11 @@
         @return ($number / 75) + rem
     }
     .container {
-        background-color: #eeeeee;
     }
     
     .box {
         margin-bottom: remfun(20);
+        padding-top: remfun(50);
 
         .item {
             padding-left: remfun(20);

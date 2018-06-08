@@ -1,7 +1,7 @@
 <template>
     <div class="snow-progressbar">
-        <div v-if="standard || rote < standard" class="progress-standard" :style="{'left': standard + '%'}"></div>
-        <div class="progress-bar" :style="{'width': barWidth + '%'}" :class="{'done': rote >= standard}"></div>
+        <div v-if="(standard == 0) || (rate < standard)" class="progress-standard" :style="{'left': standard + '%'}"></div>
+        <div class="progress-bar" :style="{'width': (active ? activeWidth : barWidth) + '%'}" :class="{'done': rate >= standard}"></div>
     </div>
 </template>
 
@@ -9,22 +9,38 @@
     export default {
         name: 'pro',
         props: {
-            rote: {
+            rate: {
                 type: Number,
                 default: 0
             },
             standard: { //阈值
                 type: Number,
                 default: 0
+            },
+            active: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
-            return {};
+            return {
+                activeWidth: 0,
+            };
         },
         computed: {
             barWidth() {// 对比率大于100处理
-                return this.rote < 100 ? this.rote : this.rote % 100;
+                return this.rate < 100 ? this.rate : this.rate % 100;
             }
+        },
+        watch: {
+            barWidth(val) {
+                this.activeWidth = val;
+            }
+        },
+        mounted() {
+            this.$nextTick(() => {
+                this.activeWidth = this.barWidth;
+            });
         }
     };
 </script>
@@ -55,9 +71,11 @@
             position: absolute;
             top: 0;
             left: 0;
+            width: 0;
             height: 100%;
             border-radius: remfun(9);
             background: linear-gradient(to right, #FFCB0B, #FF9E3B);
+            transition: width .8s ease;
             z-index: 10;
 
             &.done {
