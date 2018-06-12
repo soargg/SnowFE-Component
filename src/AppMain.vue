@@ -26,6 +26,7 @@
         <button @click="handlePicker" class="btn">Picker</button>
         <div class="box">
             <pro :rate="rate" :active="true" :standard="60"/>
+            <loop-img :imgs="imgs" :duration="0.5" :gap-time="3"/>
         </div>
     </div>
 </template>
@@ -40,6 +41,7 @@
     import Toast from './components/Toast';
     import Picker from './components/Picker';
     import pro from './components/Progress';
+    import loopImg from './components/LoopImg';
 
     export default {
         data() {
@@ -48,6 +50,12 @@
                 initSize: 0,
                 screenW: 414,
                 rate: 58,
+                imgs: [
+                    '/src/assets/img/bg1/bg1.jpg',
+                    '/src/assets/img/bg1/bg2.jpg',
+                    '/src/assets/img/bg1/bg3.jpg',
+                    '/src/assets/img/bg1/bg4.jpg',
+                ]
             };
         },
         computed: {
@@ -96,7 +104,8 @@
             't-foldlist': Foldlist,
             't-folditem': Folditem,
             't-popup': Popup,
-            pro
+            pro,
+            loopImg
         }
     };
 </script>
