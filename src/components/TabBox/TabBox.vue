@@ -1,6 +1,6 @@
 <template>
-    <div class="snow-slide-container">
-        <div class="snow-slide-wrap" ref="wrap">
+    <div class="snow-tab-container">
+        <div class="snow-tab-wrap" ref="wrap">
             <slot />
         </div>
     </div>
@@ -8,7 +8,7 @@
 
 <script>
     export default {
-        name: 'snow-slide-container',
+        name: 'snow-tab-container',
         props: {},
         data() {
             return {
@@ -25,11 +25,11 @@
 </script>
 
 <style lang="scss" scoped>
-    .snow-slide-wrap {
+    .snow-tab-wrap {
         position: relative;
+        width: 100%;
         overflow: hidden;
-
-        .snow-slide-wrap {
+        .snow-tab-wrap {
             display: box;
             display: -webkit-box;
             display: flex;

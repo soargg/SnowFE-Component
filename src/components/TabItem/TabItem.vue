@@ -1,18 +1,18 @@
 <template>
-    <div class="snow-slide-item">
+    <div class="snow-tab-item">
         <slot/>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'snow-slide-item',
+        name: 'snow-tab-item',
         props: ['id']
     };
 </script>
 
 <style lang='scss' scoped>
-    .snow-slide-item {
+    .snow-tab-item {
         flex-shrink: 0;
         width: 100%;
     }
