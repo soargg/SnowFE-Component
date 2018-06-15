@@ -133,11 +133,11 @@
                 this.isTouching = false;
                 this.transTime = 0.3;
                 if (this.deltaX > 0) { //右滑，index--
-                    if ((this.deltaX / this.stepLen) > 0.25) {
+                    if ((this.deltaX / this.stepLen) > 0.3) {
                         this.index--;
                     }
                 }else {
-                     if (Math.abs(this.deltaX / this.stepLen) > 0.25) {
+                     if (Math.abs(this.deltaX / this.stepLen) > 0.3) {
                         this.index ++;
                     }   
                 }
