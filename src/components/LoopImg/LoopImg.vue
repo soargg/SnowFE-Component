@@ -114,6 +114,7 @@
                 });
             },
             touchstart(e) {// 开始滑动
+                this.isTouching = true;
                 clearInterval(this.timer);
                 this.transTime = 0;
                 let point = this.getPoint(e);
@@ -124,7 +125,6 @@
             },
             touchmove(e) {// 滑动过程
                 // 是否是触碰滑动中
-                this.isTouching = true;
                 let point = this.getPoint(e);
                 // 获取手指滑动的间距
                 this.deltaX = point.pageX - this.startX;
@@ -166,7 +166,6 @@
         position: relative;
         overflow: hidden;
         .snow-loop-img-wrap {
-            width: 100%;
             display: box;
             display: -webkit-box;
             display: flex;

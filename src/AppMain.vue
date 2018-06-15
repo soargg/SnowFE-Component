@@ -1,7 +1,17 @@
 <template>
     <div class="container">
-        <div class="loop-wrap">
+        <div class="loop-wrap" v-if="true">
             <loop-img :imgs="imgs" :duration="0.5" :gap-time="4"/>
+        </div>
+        <div class="loop-wrap">
+            <tab-box>
+                <tab-item>
+                    <img src="/src/assets/img/bg1/bg2.jpg" alt="">
+                </tab-item>
+                <tab-item>
+                    <img src="/src/assets/img/bg1/bg4.jpg" alt="">
+                </tab-item>
+            </tab-box>
         </div>
         <h4>Hello World!!</h4>
         <div class="inp-wrap">
@@ -39,11 +49,12 @@
     import Folditem from './components/Folditem';
     // 弹窗
     import Popup from './components/Popup';
-
     import Toast from './components/Toast';
     import Picker from './components/Picker';
     import pro from './components/Progress';
     import loopImg from './components/LoopImg';
+    import tabBox from './components/TabBox';
+    import tabItem from './components/TabItem';
 
     export default {
         data() {
@@ -110,7 +121,9 @@
             't-folditem': Folditem,
             't-popup': Popup,
             pro,
-            loopImg
+            loopImg,
+            tabBox,
+            tabItem
         }
     };
 </script>
@@ -123,6 +136,9 @@
         .loop-wrap {
             height: remfun(400);
             overflow: hidden;
+            img {
+                width: 100%;
+            }
         }
     }
     
