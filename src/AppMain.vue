@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="loop-wrap">
-            <loop-img :imgs="imgs" :duration="0.5" :gap-time="3"/>
+            <loop-img :imgs="imgs" :duration="0.5" :gap-time="4"/>
         </div>
         <h4>Hello World!!</h4>
         <div class="inp-wrap">
@@ -53,7 +53,10 @@
                 screenW: 414,
                 rate: 58,
                 imgs: [
-                    '/src/assets/img/bg1/bg1.jpg',
+                    {
+                        imgSrc: '/src/assets/img/bg1/bg1.jpg',
+                        link: 'https://tall-ui.github.io'
+                    },
                     '/src/assets/img/bg1/bg2.jpg',
                     '/src/assets/img/bg1/bg3.jpg',
                     '/src/assets/img/bg1/bg4.jpg',

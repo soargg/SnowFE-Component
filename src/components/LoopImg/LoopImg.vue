@@ -1,16 +1,18 @@
 <template>
     <div class="snow-loop-img-container">
-        <!-- @touchstart="touchstart($event)"
-            @touchmove.prevent="touchmove($event)"
-            @touchend="touchend($event)" -->
         <ul class="snow-loop-img-wrap"
             :style="{
                 'transform': 'translate('+ distance +'px, 0)',
                 'transition-duration': transTime +'s'
             }"
+            @touchstart="touchstart($event)"
+            @touchmove.prevent="touchmove($event)"
+            @touchend="touchend($event)"
             ref="wrap">
             <li v-for="(item, index) in innerImgs" :key="index" class="snow-loop-item">
-                <img :src="item">
+                <a :href="item.link" class="link">
+                    <img :src="item.imgSrc" class="loop-item">
+                </a>
             </li>
         </ul>
     </div>
@@ -30,18 +32,18 @@
             },
             gapTime: {// 轮播图间隔时间 单位 s 
                 type: Number,
-                default: 3
+                default: 4
             }
         },
         data() {
             return {
                 wrap: null,
                 timer: 0,// 定时器
-                index: 0,// 图片索引
+                index: 1,// 图片索引
                 count: 0,// 图片的数量
                 stepLen: 0,// 每次滑动的距离
                 isTouching: false,// 手指正在触碰
-                transTime: 0.5,// 动画过渡时间单位 s
+                transTime: 0,// 动画过渡时间单位 s
                 startX: 0,// 记录手指触碰的初始位置
                 prevX: 0,// 记录当前滑动的距离
                 deltaX: 0,// 记录手指滑动的距离
@@ -51,15 +53,26 @@
             innerImgs() {
                 let arr = [];
                 this.imgs.forEach(item => {
-                    arr.push(item);
+                    if (typeof item === 'string') {
+                        arr.push({
+                            imgSrc: item,
+                            link: 'javascript:;'
+                        });
+                    }else if (Object.prototype.toString.call(item) == '[object Object]') {
+                        arr.push({
+                            imgSrc: item.imgSrc,
+                            link: item.link
+                        })
+                    }
                 });
                 if (this.imgs.length > 1) {
-                    arr.push(this.imgs[0]);
+                    arr.push(arr[0]);
+                    arr.unshift(arr[arr.length - 2]);
                 }
                 this.count = arr.length;
                 return arr;
             },
-            distance() {
+            distance() {// slide滑动的距离
                 if (this.isTouching) {
                     return -this.index * this.stepLen + this.deltaX;
                 }
@@ -69,6 +82,7 @@
         mounted() {
             this.wrap = this.$refs.wrap;
             this.stepLen = this.wrap.offsetWidth;
+            window.addEventListener('resize', () => { this.stepLen = this.wrap.offsetWidth; }, false);
             this.$nextTick(() => {
                 this.transitionEnd();
                 this.active();
@@ -96,21 +110,21 @@
                     if (this.$refs.wrap.style[t] !== undefined) break;
                 }
                 this.$refs.wrap.addEventListener(transitions[t], () => {
-                    if (this.index + 1 >= this.count) {
-                        this.index = 0,
-                        this.transTime = 0;
-                    }
+                    this.endPoint();
                 });
             },
             touchstart(e) {// 开始滑动
                 clearInterval(this.timer);
-                this.isTouching = true;
                 this.transTime = 0;
                 let point = this.getPoint(e);
                 // 记录指尖触碰的初始位置
                 this.startX = point.pageX;
+                // 为避免队列尾部空白，端点处理
+                this.endPoint();
             },
             touchmove(e) {// 滑动过程
+                // 是否是触碰滑动中
+                this.isTouching = true;
                 let point = this.getPoint(e);
                 // 获取手指滑动的间距
                 this.deltaX = point.pageX - this.startX;
@@ -118,10 +132,30 @@
             touchend(e) {// 滑动结束
                 this.isTouching = false;
                 this.transTime = 0.3;
+                if (this.deltaX > 0) { //右滑，index--
+                    if ((this.deltaX / this.stepLen) > 0.25) {
+                        this.index--;
+                    }
+                }else {
+                     if (Math.abs(this.deltaX / this.stepLen) > 0.25) {
+                        this.index ++;
+                    }   
+                }
+                // 清零 deltaX;
+                this.deltaX = 0;
                 this.active();
             },
             getPoint(e) {// 默认以第一个手指的位置计算
                 return e.touches ? e.touches[0] : e;
+            },
+            endPoint() {// 端点处理
+                if (this.index + 1 >= this.count) {
+                    this.index = 1;
+                }
+                if (this.index - 1 < 0) {
+                    this.index = this.count - 2;
+                }
+                this.transTime = 0;
             }
         }
     };
@@ -140,9 +174,13 @@
             .snow-loop-item {
                 width: 100%;
                 flex-shrink: 0;
-                >img {
-                    display: block;
-                    width: 100%;
+                >a.link {
+                    -webkit-tap-highlight-color: rgba(0,0,0,0);
+                    -webkit-tap-highlight-color: transparent;
+                    >img.loop-item {
+                        display: block;
+                        width: 100%;
+                    }
                 }
             }
         }
