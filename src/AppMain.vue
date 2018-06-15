@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <div class="loop-wrap">
+            <loop-img :imgs="imgs" :duration="0.5" :gap-time="3"/>
+        </div>
         <h4>Hello World!!</h4>
         <div class="inp-wrap">
             屏宽：<input type="number" placeholder="屏幕宽度" v-model="screenW" class="inp"><br>
@@ -26,7 +29,6 @@
         <button @click="handlePicker" class="btn">Picker</button>
         <div class="box">
             <pro :rate="rate" :active="true" :standard="60"/>
-            <loop-img :imgs="imgs" :duration="0.5" :gap-time="3"/>
         </div>
     </div>
 </template>
@@ -115,6 +117,10 @@
         @return ($number / 75) + rem
     }
     .container {
+        .loop-wrap {
+            height: remfun(400);
+            overflow: hidden;
+        }
     }
     
     .box {
@@ -125,6 +131,8 @@
             padding-left: remfun(20);
             border-bottom: 1px solid #E6e6e6
         }
+
+        
     }
     .btn {
         width: remfun(200);
