@@ -26,7 +26,6 @@
         },
         data() {
             return {
-                wrap: null,
                 index: 0,// tabitem 索引
                 count: 0,// item 总数
                 stepLen: 0, // 横滑步长
