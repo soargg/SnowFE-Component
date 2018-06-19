@@ -3,9 +3,11 @@
         <div class="loop-wrap" v-if="true">
             <loop-img :imgs="imgs" :duration="0.5" :swipeable="true" :gap-time="4"/>
         </div>
-        
-        <button @click="itemId='t1'">tab1</button>
-        <button @click="itemId='t2'">tab2</button>
+        <div class="t-around">
+            <button @click="itemId='t1'" class="btn">tab1</button>
+            <button @click="itemId='t2'" class="btn">tab2</button>
+            <button @click="itemId='t3'" class="btn">tab3</button>
+        </div>
         <div class="loop-wrap">
             <tab-box v-model="itemId">
                 <tab-item id="t1">
@@ -13,6 +15,9 @@
                 </tab-item>
                 <tab-item id="t2">
                     <img src="/src/assets/img/bg1/bg4.jpg" alt="">
+                </tab-item>
+                <tab-item id="t3">
+                    <img src="/src/assets/img/bg1/bg3.jpg" alt="">
                 </tab-item>
             </tab-box>
         </div>
@@ -133,6 +138,7 @@
 </script>
 
 <style lang="scss" scoped>
+    @import url(./assets/css/base.css);
     @function remfun($number) {
         @return ($number / 75) + rem
     }
@@ -143,6 +149,7 @@
             img {
                 width: 100%;
             }
+            margin-bottom: remfun(30)
         }
     }
     
@@ -160,6 +167,10 @@
     .btn {
         width: remfun(200);
         height: remfun(60);
+        background-color: #FFF;
+        font-size: remfun(40);
+        color: darkgray;
+        font-weight: bold;
     }
 
     .bg-white {

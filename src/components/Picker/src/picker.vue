@@ -106,6 +106,7 @@ export default {
         display: flex;
         align-items: flex-end;
         justify-content: center;
+        z-index: 888;
         .tal-picker-container {
             width: 100%;
             height: remfun(490);

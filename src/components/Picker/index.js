@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import picker from './picker.vue';
+import picker from './src/picker.vue';
 // 创造一个picker构造器;
 const PickerConstructor = Vue.extend(picker);
 

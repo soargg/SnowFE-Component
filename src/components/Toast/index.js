@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import toast from './toast.vue';
+import toast from './src/toast.vue';
 
 
 const ToastConstructor = Vue.extend(toast);
