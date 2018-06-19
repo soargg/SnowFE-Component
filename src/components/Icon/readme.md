@@ -1,8 +1,3 @@
----
-title: Icon
-tags: font icon component
----
-
 # Icon
 
 提供一些适量图标库

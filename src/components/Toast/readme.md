@@ -1,8 +1,3 @@
----
-title: Toast
-tags: toast component
----
-
 # Toast
 
 简短的消息提示框，支持自定义位置、持续时间

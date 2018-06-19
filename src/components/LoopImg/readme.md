@@ -1,8 +1,3 @@
----
-title: LoopImg
-tags: LoopImg component 轮播图
----
-
 # LoopImg
 
 基于Vue，可横滑的无缝轮播图；

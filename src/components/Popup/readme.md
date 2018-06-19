@@ -1,8 +1,3 @@
----
-title: Popup
-tags: popup component
----
-
 # Popup
 
 弹出框，可自定义内容。

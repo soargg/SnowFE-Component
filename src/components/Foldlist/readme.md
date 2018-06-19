@@ -1,8 +1,3 @@
----
-title: Foldlist
-tags: Foldlist component
----
-
 # Foldlist
 
 下拉展开全部列表，使用时确保列表数据的不为空，数量不可变（暂不支持异步渲染）；

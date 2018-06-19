@@ -1,8 +1,3 @@
----
-title: Loading
-tags: Loading component
----
-
 # Loading
 
 加载时的等待动画特效。

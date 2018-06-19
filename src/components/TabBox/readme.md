@@ -1,8 +1,3 @@
----
-title: TabBox
-tags: Tab component
----
-
 # TabBox
 
 基于Vue可滑动Tab切换组件

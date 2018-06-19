@@ -1,8 +1,3 @@
----
-title: Picker
-tags: Picker component
----
-
 # Picker
 
 项目选择器，传入一组格式相同的数据，用选择触发回调；该组件模拟轮子滚动效果
