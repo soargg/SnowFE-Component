@@ -38,4 +38,4 @@ this.$Loading.close();
 
 Loading
 
-![loading](D:\My\HTML\Component\src\assets\img\component\loading\loading.png)
+![loading](../../assets/img/component/loading/loading.png)
