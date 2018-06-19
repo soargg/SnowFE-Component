@@ -33,6 +33,10 @@
             gapTime: {// 轮播图间隔时间 单位 s 
                 type: Number,
                 default: 4
+            },
+            swipeable: { // 是否可滑动
+                type: Boolean,
+                default: true
             }
         },
         data() {
@@ -114,6 +118,9 @@
                 });
             },
             touchstart(e) {// 开始滑动
+                if(!this.swipeable) return;
+                // 已经记录滑动的距离清零
+                this.deltaX = 0;
                 this.isTouching = true;
                 clearInterval(this.timer);
                 this.transTime = 0;
@@ -124,12 +131,15 @@
                 this.endPoint();
             },
             touchmove(e) {// 滑动过程
+                if(!this.swipeable) return;
                 // 是否是触碰滑动中
                 let point = this.getPoint(e);
                 // 获取手指滑动的间距
                 this.deltaX = point.pageX - this.startX;
             },
             touchend(e) {// 滑动结束
+                if(!this.swipeable) return;
+                // 手指离开
                 this.isTouching = false;
                 this.transTime = 0.3;
                 if (this.deltaX > 0) { //右滑，index--
@@ -142,7 +152,6 @@
                     }   
                 }
                 // 清零 deltaX;
-                this.deltaX = 0;
                 this.active();
             },
             getPoint(e) {// 默认以第一个手指的位置计算

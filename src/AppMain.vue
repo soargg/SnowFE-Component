@@ -1,14 +1,17 @@
 <template>
     <div class="container">
         <div class="loop-wrap" v-if="true">
-            <loop-img :imgs="imgs" :duration="0.5" :gap-time="4"/>
+            <loop-img :imgs="imgs" :duration="0.5" :swipeable="true" :gap-time="4"/>
         </div>
+        
+        <button @click="itemId='t1'">tab1</button>
+        <button @click="itemId='t2'">tab2</button>
         <div class="loop-wrap">
-            <tab-box>
-                <tab-item>
+            <tab-box v-model="itemId">
+                <tab-item id="t1">
                     <img src="/src/assets/img/bg1/bg2.jpg" alt="">
                 </tab-item>
-                <tab-item>
+                <tab-item id="t2">
                     <img src="/src/assets/img/bg1/bg4.jpg" alt="">
                 </tab-item>
             </tab-box>
@@ -59,6 +62,7 @@
     export default {
         data() {
             return {
+                itemId: 't1',
                 isPopup: false,
                 initSize: 0,
                 screenW: 414,
