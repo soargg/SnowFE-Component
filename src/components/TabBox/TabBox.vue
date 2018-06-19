@@ -70,7 +70,6 @@
         methods: {
             touchStart(e) {// 触碰屏幕瞬间
                 if(!this.swipeable) return;
-
                 // 点击时deltaX 清零
                 this.deltaX = 0;
                 this.isTouching = true;
@@ -80,7 +79,6 @@
             },
             touchMove(e) {// 滑动中
                 if(!this.swipeable) return;
-
                 let point = this.getPoint(e);
                 let deltaX = point.pageX - this.startX;
                 // 第一页右滑或做后一页左滑时缓冲
@@ -93,7 +91,6 @@
             },
             touchEnd(e) {// 触碰结束
                 if(!this.swipeable) return;
-
                 this.isTouching = false;
                 this.duration = 0.3;
                 //当滑动距离
