@@ -2,12 +2,7 @@
     <div class="popup">
         <transition name="overlay">
             <div v-show="value" @click.self="handleClick" class="popup-overlay-container"
-                :class="{
-                   'popup-position-top': popupPosition === 'top',
-                   'popup-position-bottom': popupPosition === 'bottom',
-                   'popup-position-left': popupPosition === 'left',
-                   'popup-position-right': popupPosition === 'right',
-                }">
+                :class="'popup-position-' + popupPosition">
                 <transition :name="popupName">
                     <div v-show="value" class="popup-content" :style="{'width': width}">
                         <slot />
@@ -95,15 +90,16 @@
             }
 
             .popup-content {
-                background-color: #fff; 
-                transition: all .3s ease-out;
+                width: auto;
+                height: auto;
+                transition: all .4s ease-out;
             }
         }
     }
 
-    .overlay-leave-to {
-        -webkit-transition: all 0s .3s;
-        transition: all 0s .3s;
+    .overlay-leave-active {
+        transition: opacity .2s .2s;
+        opacity: .1;
     }
 
     // 默认

@@ -30,7 +30,7 @@
                 </t-folditem>
             </t-foldlist>
         </div>
-        <t-popup v-model="isPopup" popup-transtion="popup-slide-top" popup-position="bottom" :to-block="true">
+        <t-popup v-model="isPopup" popup-transtion="popup-scale" popup-position="center" :to-block="true">
             <div class="bg-white">
                 <h1>标题一</h1>
                 <h2>标题2</h2>
