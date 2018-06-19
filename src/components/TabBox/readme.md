@@ -7,7 +7,7 @@
 ```html
 <template>
 	<div class="t-around">
-        <button @click="itemId='t1'" class="btn">tab1</button>
+    <button @click="itemId='t1'" class="btn">tab1</button>
         <button @click="itemId='t2'" class="btn">tab2</button>
         <button @click="itemId='t3'" class="btn">tab3</button>
     </div>
