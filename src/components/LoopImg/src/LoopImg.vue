@@ -49,7 +49,6 @@
                 isTouching: false,// 手指正在触碰
                 transTime: 0,// 动画过渡时间单位 s
                 startX: 0,// 记录手指触碰的初始位置
-                prevX: 0,// 记录当前滑动的距离
                 deltaX: 0,// 记录手指滑动的距离
             };
         },

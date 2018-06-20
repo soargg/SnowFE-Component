@@ -32,10 +32,8 @@
                 isTouching: false,// 手指正在触碰
                 duration: 0,// 动画过渡时间单位 s
                 startX: 0,// 记录手指触碰的初始位置
-                prevX: 0,// 记录当前滑动的距离
                 deltaX: 0,// 记录手指滑动的距离
                 currentActive: this.value,// 当前item 的 ID
-                itemIDs: []
             };
         },
         computed: {
@@ -48,11 +46,11 @@
         },
         watch: {
             index(val, oldval) {
-                this.$emit('input', this.itemIDs[this.index]);
+                this.$emit('input', this.$children[this.index].id);
             },
             value(val, oldval) {
                 this.duration = 0.3;
-                this.index = this.arrayFindIndx(this.itemIDs, (item) => {return item === val;});
+                this.index = this.arrayFindIndx(this.$children, (item) => {return item.id === val;});
                 this.currentActive = val
             }
         },
@@ -60,11 +58,8 @@
             this.stepLen = this.$refs.wrap.offsetWidth;
             window.addEventListener('resize', () => { this.stepLen = this.$refs.wrap.offsetWidth; }, false);
             this.count = this.$refs.wrap.childElementCount;
-            // 获取所有子组件的ID值
-            this.getIDs();
             // 获取初始索引
-            this.index = this.arrayFindIndx(this.itemIDs, (item) => {return item === this.currentActive;});
-            
+            this.index = this.arrayFindIndx(this.$children, (item) => {return item.id === this.currentActive;});
         },
         methods: {
             touchStart(e) {// 触碰屏幕瞬间
@@ -106,13 +101,6 @@
             },
             getPoint(e) {// 默认以第一个手指的位置计算
                 return e.touches ? e.touches[0] : e;
-            },
-            getIDs() {
-                let arr = [];
-                this.$children.forEach(item => {
-                    arr.push(item.id);
-                })
-                this.itemIDs = arr;
             },
             arrayFindIndx(arr, callBack) {
                 let index = 0;
