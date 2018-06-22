@@ -53,7 +53,7 @@ function Signal() {
         }
         // 判断左右滑动
         if ((this.slope >= - tbLimit / 3) && (this.slope <=  tbLimit / 3)) {
-            if (this.deltaX > 0) {
+            if (this.deltaX < 0) {
                 (typeof this.toleft === 'function') && this.toleft();
             }else {
                 (typeof this.toright === 'function') && this.toright();
