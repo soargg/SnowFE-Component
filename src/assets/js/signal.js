@@ -25,7 +25,7 @@ function Signal() {
     }, false);
     window.addEventListener('touchmove', (e)=>{
         // 阻止默认行为
-        e.defaultPrevented = true;
+        e.preventDefault();
         // 是否滑动动过
         this.isMoved = true;
         var point = getPoint(e);
