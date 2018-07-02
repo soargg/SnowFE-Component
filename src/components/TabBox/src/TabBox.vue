@@ -34,6 +34,7 @@
                 startX: 0,// 记录手指触碰的初始位置
                 deltaX: 0,// 记录手指滑动的距离
                 currentActive: this.value,// 当前item 的 ID
+                tailPoint: {x:0, y:0},
             };
         },
         computed: {
@@ -70,18 +71,29 @@
                 this.duration = 0;
                 let point = this.getPoint(e);
                 this.startX = point.pageX;
+                // 上一个点的位置
+                this.tailPoint.x = point.pageX;
+                this.tailPoint.y = point.pageY;
             },
             touchMove(e) {// 滑动中
                 if(!this.swipeable) return;
                 let point = this.getPoint(e);
-                let deltaX = point.pageX - this.startX;
-                // 第一页右滑或做后一页左滑时缓冲
-                if ((this.index - 1 < 0 && deltaX > 0) || (this.index + 1 >= this.count) && deltaX < 0) {
-                    let rate = Math.abs(deltaX / this.stepLen);
-                    this.deltaX = deltaX * (1 - rate);
-                }else {
-                    this.deltaX = deltaX;
+                let k = (point.pageY - this.tailPoint.y) / (point.pageX- this.tailPoint.x);
+                if ( -0.5 <= k && k < 0.5) {
+                    let deltaX = point.pageX - this.startX;
+                    // 第一页右滑或做后一页左滑时缓冲
+                    if ((this.index - 1 < 0 && deltaX > 0) || (this.index + 1 >= this.count) && deltaX < 0) {
+                        let rate = Math.abs(deltaX / this.stepLen);
+                        this.deltaX = deltaX * (1 - rate);
+                    }else {
+                        this.deltaX = deltaX;
+                    }
+                } else {
+                    this.startX = point.pageX;
                 }
+                // 上一个点的位置
+                this.tailPoint.x = point.pageX;
+                this.tailPoint.y = point.pageY;
             },
             touchEnd(e) {// 触碰结束
                 if(!this.swipeable) return;
@@ -98,6 +110,7 @@
                         this.index++;
                     }
                 }
+                this.tailPoint = {x: 0, y: 0}
             },
             getPoint(e) {// 默认以第一个手指的位置计算
                 return e.touches ? e.touches[0] : e;
