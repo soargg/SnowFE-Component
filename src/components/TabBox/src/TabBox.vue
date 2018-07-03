@@ -31,10 +31,9 @@
                 stepLen: 0, // 横滑步长
                 isTouching: false,// 手指正在触碰
                 duration: 0,// 动画过渡时间单位 s
-                startX: 0,// 记录手指触碰的初始位置
                 deltaX: 0,// 记录手指滑动的距离
                 currentActive: this.value,// 当前item 的 ID
-                tailPoint: {x:0, y:0},
+                tailPoint: {x:0, y:0},// 记录手指触碰的初始位置
             };
         },
         computed: {
@@ -70,17 +69,17 @@
                 this.isTouching = true;
                 this.duration = 0;
                 let point = this.getPoint(e);
-                this.startX = point.pageX;
                 // 上一个点的位置
                 this.tailPoint.x = point.pageX;
                 this.tailPoint.y = point.pageY;
             },
             touchMove(e) {// 滑动中
                 if(!this.swipeable) return;
-                let point = this.getPoint(e);
-                let k = (point.pageY - this.tailPoint.y) / (point.pageX- this.tailPoint.x);
-                if ( -0.5 <= k && k < 0.5) {
-                    let deltaX = point.pageX - this.startX;
+                const point = this.getPoint(e);
+                let deltaX = point.pageX- this.tailPoint.x;
+                let deltaY = point.pageY - this.tailPoint.y;
+                let k = deltaY / deltaX;
+                if ( Math.abs(k) <= 1) {
                     // 第一页右滑或做后一页左滑时缓冲
                     if ((this.index - 1 < 0 && deltaX > 0) || (this.index + 1 >= this.count) && deltaX < 0) {
                         let rate = Math.abs(deltaX / this.stepLen);
@@ -88,12 +87,7 @@
                     }else {
                         this.deltaX = deltaX;
                     }
-                } else {
-                    this.startX = point.pageX;
-                }
-                // 上一个点的位置
-                this.tailPoint.x = point.pageX;
-                this.tailPoint.y = point.pageY;
+                } else {}
             },
             touchEnd(e) {// 触碰结束
                 if(!this.swipeable) return;
