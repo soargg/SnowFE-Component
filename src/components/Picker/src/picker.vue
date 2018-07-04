@@ -83,7 +83,7 @@ export default {
             let value = this.items[index].value;
             this.isPop = false;
             // 执行选中回调函数
-            typeof this.select === 'function' && this.select(text, value, index);
+            typeof this.select === 'function' && this.select(value, text, index);
         }
     }
 };
