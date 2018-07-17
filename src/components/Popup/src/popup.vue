@@ -32,9 +32,6 @@
             toBlock: {// popup出现的位置
                 type: Boolean,
                 default: false
-            },
-            close: {
-                type: Function
             }
         },
         data() {
