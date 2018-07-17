@@ -24,7 +24,8 @@ var _ = {
     },
     setCookie: function (key, value, expires) {//设置cookie, expires单位s
         // key 与 value 其中一个不是字符串时就不执行
-        if(typeof key !== 'string' || typeof value !== 'string') return;
+        if(typeof key !== 'string') return;
+        value = (typeof value === 'object') ? JSON.stringify(value) : value;
         var cookieStr = '';
         // 过期时间是一个数字时，为 cookie 添加一个过期时间； 
         if (Number(expires) !== NaN) {
