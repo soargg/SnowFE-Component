@@ -46,26 +46,24 @@ export default {
         };
     },
     mounted() {
-        this.$nextTick(() => {
-            this.scroll = new BScroll(this.$refs.pickerwrap, {
-                scrollX: false,
-                scrollY: true,
-                click: true,
-                startY: 0,
-                bounce: {
-                    top: true,
-                    bottom: true
-                },
-                momentum: false,
-                wheel:{
-                    selectedIndex: this.selectedIndex,
-                    rotate: 25,
-                    adjustTime: 400,
-                    wheelWrapperClass: 'wheel-scroll',
-                    wheelItemClass: 'wheel-item'
-                }
-            })
-        });
+        this.scroll = new BScroll(this.$refs.pickerwrap, {
+            scrollX: false,
+            scrollY: true,
+            click: true,
+            startY: 0,
+            bounce: {
+                top: true,
+                bottom: true
+            },
+            momentum: false,
+            wheel:{
+                selectedIndex: this.selectedIndex,
+                rotate: 25,
+                adjustTime: 400,
+                wheelWrapperClass: 'wheel-scroll',
+                wheelItemClass: 'wheel-item'
+            }
+        })
     },
     methods: {
         show() {

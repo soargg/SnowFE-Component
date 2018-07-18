@@ -28,13 +28,6 @@
             <h4>结果：{{ compuSize }}</h4>
         </div>
         <t-icon type="4column"/>
-        <div class="box">
-            <t-foldlist :initial-number='5'>
-                <t-folditem v-for="i in 5" :key="i" class="item">
-                    {{ i }}
-                </t-folditem>
-            </t-foldlist>
-        </div>
         <t-popup v-model="isPopup" popup-transtion="popup-scale" popup-position="center" :to-block="true">
             <div class="bg-white">
                 <h1>标题一</h1>
@@ -89,28 +82,30 @@
             }
         },
         mounted() {
-            this.picker = Picker({
-                title: '请选择班级',
-                data: [
-                    {text: '一年级1班', value: '1'},
-                    {text: '一年级2班', value: '2'},
-                    {text: '一年级3班', value: '3'},
-                    {text: '一年级4班', value: '4'},
-                    {text: '一年级5班', value: '5'},
-                    {text: '一年级6班', value: '6'},
-                    {text: '一年级7班', value: '7'},
-                ],
-                onSelect(text, value, index) {
-                    Toast({
-                        text: 'text:' + text + '  value:' + value + '  index：' + index
-                    })
-                },
-                onCancel() {
-                    Toast({
-                        text: '取消了'
-                    })
-                }
-            });
+            this.$nextTick(() => {
+                this.picker = Picker({
+                    title: '请选择班级',
+                    data: [
+                        {text: '一年级1班', value: '1'},
+                        {text: '一年级2班', value: '2'},
+                        {text: '一年级3班', value: '3'},
+                        {text: '一年级4班', value: '4'},
+                        {text: '一年级5班', value: '5'},
+                        {text: '一年级6班', value: '6'},
+                        {text: '一年级7班', value: '7'},
+                    ],
+                    onSelect(text, value, index) {
+                        Toast({
+                            text: 'text:' + text + '  value:' + value + '  index：' + index
+                        })
+                    },
+                    onCancel() {
+                        Toast({
+                            text: '取消了'
+                        })
+                    }
+                });
+            })
         },
         methods: {
             handleClick() {
