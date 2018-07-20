@@ -44,9 +44,10 @@ var _ = {
         var obj = {};
         var queryArr = null;
         // 如果锚点放在查询字符串之后,使用search
-        var q = window.location.search ? window.location.search : window.location.hash;
+        with(window.location) {
+            var q = search ? search : hash;
+        }
         querystring = (querystring!== undefined) ? querystring : q;
-        
         // 获取查询字符串数组
         var queryArr = querystring.match(new RegExp('[^\?\&]+=[^\?\&]+', 'g'));
         if (queryArr != null) {
