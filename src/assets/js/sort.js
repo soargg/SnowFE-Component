@@ -56,3 +56,29 @@ function insertionSort(arr) {
     }
     return arr;
 }
+
+/*
+* 合并两个数组并排序
+* 
+*/
+function sortMergeArr(arr1, arr2) {
+    arr1.sort(function(x,y) {return x - y});
+    arr2.sort(function(x,y) {return x - y});
+    var i = 0;
+    var j = 0;
+    var arr = []
+    while(i < arr1.length && j < arr2.length) {
+        if (arr1[i] <= arr2[j]) {
+            arr.push(arr1[i++]);
+        }else {
+            arr.push(arr2[j++])
+        }
+    }
+    while(i < arr1.length) {
+        arr.push(arr1[i++]);
+    }
+    while(j < arr2.length) {
+        arr.push(arr2[j++]);
+    }
+    return arr;
+}
