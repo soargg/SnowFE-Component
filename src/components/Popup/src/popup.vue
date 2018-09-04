@@ -32,6 +32,10 @@
             toBlock: {// popup出现的位置
                 type: Boolean,
                 default: false
+            },
+            canClose: {// 点击浮层时是否可关闭
+                type: Boolean,
+                default: true
             }
         },
         data() {
@@ -42,9 +46,12 @@
         },
         methods: {
             handleClick() {
-                this.$emit('input', false);
-                // 触发关闭事件
-                this.$emit('close');
+                if (this.canClose) {
+                    this.$emit('input', false);
+                    // 触发关闭事件
+                    this.$emit('close');
+                }
+               
             }
         }
     };
