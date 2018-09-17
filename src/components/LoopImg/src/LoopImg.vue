@@ -153,14 +153,13 @@
                 // 手指离开
                 this.isTouching = false;
                 this.transTime = 0.3;
-                if (this.deltaX > 0) { //右滑，index--
-                    if ((this.deltaX / this.stepLen) > 0.3) {
+
+                if (Math.abs(this.deltaX / this.stepLen) > 0.1) {
+                    if (this.deltaX > 0) { //右滑，index--
                         this.index--;
-                    }
-                }else {
-                    if (Math.abs(this.deltaX / this.stepLen) > 0.3) {
+                    }else { // 左滑
                         this.index ++;
-                    }   
+                    }
                 }
                 this.active();
             },
