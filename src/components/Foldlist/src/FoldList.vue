@@ -1,8 +1,13 @@
 <template>
     <div class="fold-container">
-        <div class="fold-box" ref="foldbox" :class="{'folded': !more}" :style="{
-            'height': boxHeight + 'px'
-        }">
+        <div class="fold-box" ref="foldbox"
+            :class="{
+                'folded': !more,
+                'active': isActive
+            }"
+            :style="{
+                'height': boxHeight + 'px'
+            }">
             <div ref="foldlist" id="foldlist">
                 <slot />
             </div>
@@ -44,6 +49,7 @@
                 isClose: true, // 手风琴列表是否被折叠
                 boxHeight: 0,
                 childCount: 0,
+                isActive: false,
                 top: 0
             }
         },
@@ -81,11 +87,18 @@
             },
             resize() {
                 this.$nextTick(() => {
+                    // 重新渲染时初始化一些变量
+                    this.isActive = false;
                     // 计算出其中一个项目的高
                     let item = this.foldlist.querySelector('.tal-fold-list-item');
                     let itemHeight = (item.getBoundingClientRect && item.getBoundingClientRect().height) || item.offsetHeight;
 
                     let h = this.initialNumber * itemHeight;
+                    // 首次展示没有动画效果
+                    let timerActive = setTimeout(() => {
+                        this.isActive = true;
+                        clearTimeout(timerActive);
+                    }, 100);
                     if (this.childCount > this.initialNumber) {
                         // 如果项目的总数大于初始,计算初始高度
                         h = this.initialNumber * itemHeight;
@@ -116,12 +129,14 @@
 
         .fold-box {
             height: 0;
-            -webkit-transition: height .8s ease;
-            transition: height .8s ease;
-            transform: translateZ(0);
             overflow: hidden;
             &.folded {
                 overflow: auto;
+            }
+            &.active {
+                -webkit-transition: height .8s ease;
+                transition: height .8s ease;
+                transform: translateZ(0);
             }
         }
 

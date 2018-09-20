@@ -45,7 +45,7 @@
         </div>
 
         <fold-list :initialNumber="3" open-text="展开" foldText="收起">
-            <fold-item v-for="i in 8" :key="i" style="border-bottom: 1px solid #eee;">
+            <fold-item v-for="i in 3" :key="i" style="border-bottom: 1px solid #eee;">
                 <span style="font-size: 24px;">{{i}}</span>
             </fold-item>
         </fold-list>
