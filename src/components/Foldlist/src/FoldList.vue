@@ -66,6 +66,11 @@
             setTimeout(()=> {
                 this.foldlist = this.$refs.foldlist;
                 this.childCount = [].slice.call(this.foldlist.querySelectorAll('.tal-fold-list-item')).length;
+                // 计算出其中一个项目的高
+                let item = this.foldlist.querySelector('.tal-fold-list-item');
+                let itemHeight = (item.getBoundingClientRect && item.getBoundingClientRect().height) || item.offsetHeight;
+                this.initHeight = this.initialNumber * itemHeight;
+                // 处理列表
                 this.resize();
             },20)
         },
@@ -89,22 +94,16 @@
                 this.$nextTick(() => {
                     // 重新渲染时初始化一些变量
                     this.isActive = false;
-                    // 计算出其中一个项目的高
-                    let item = this.foldlist.querySelector('.tal-fold-list-item');
-                    let itemHeight = (item.getBoundingClientRect && item.getBoundingClientRect().height) || item.offsetHeight;
-
-                    let h = this.initialNumber * itemHeight;
                     // 首次展示没有动画效果
                     let timerActive = setTimeout(() => {
                         this.isActive = true;
                         clearTimeout(timerActive);
                     }, 100);
+
+                    // 如果列表项目的总数大于初始数目,计算初始高度
                     if (this.childCount > this.initialNumber) {
-                        // 如果项目的总数大于初始,计算初始高度
-                        h = this.initialNumber * itemHeight;
                         this.more = true;
-                        this.initHeight = h;
-                        this.$refs.foldbox.setAttribute('style', 'height: '+ h +'px;');
+                        this.$refs.foldbox.setAttribute('style', 'height: '+ this.initHeight +'px;');
                     }else {
                         this.more = false;
                         this.$refs.foldbox.setAttribute('style', 'height: auto;');
