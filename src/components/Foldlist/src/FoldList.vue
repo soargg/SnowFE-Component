@@ -1,6 +1,6 @@
 <template>
     <div class="fold-container">
-        <div class="fold-box" ref="foldbox" :class="{'folded': more}" :style="{
+        <div class="fold-box" ref="foldbox" :class="{'folded': !more}" :style="{
             'height': boxHeight + 'px'
         }">
             <div ref="foldlist" id="foldlist">
@@ -8,8 +8,7 @@
             </div>
         </div>
         <div class="fold-more" @click="fold" v-show="more">
-            <span v-show="!isClose">收起全部</span>
-            <span v-show="isClose">展开全部</span>
+            <span>{{isClose ? openText : foldText}}</span>
             <span class="fold-icon-more" :class="{'fold-icon-more-up': !isClose}">
                 <t-icon type="more_unfold"/>
             </span>
@@ -18,7 +17,7 @@
 </template>
 
 <script>
-    import tIcon from '../Icon'
+    import tIcon from '../../Icon'
     export default {
         name: 'Foldlist',
         props: {
@@ -29,6 +28,14 @@
             initialNumber: {
                 type: Number,
                 default: 2
+            },
+            foldText: {
+                type: String,
+                default: '收起全部'
+            },
+            openText: {
+                type: String,
+                default: '展开全部'
             }
         },
         data() {
@@ -36,12 +43,12 @@
                 more: false,// 更多按钮展示
                 isClose: true, // 手风琴列表是否被折叠
                 boxHeight: 0,
-                child: 0,
+                childCount: 0,
                 top: 0
             }
         },
         watch: {
-            child(curVal, oldVal) {
+            childCount(curVal, oldVal) {
                 this.resize();
                 if (!this.isClose) {
                     this.isClose = true;
@@ -50,18 +57,21 @@
         },
         mounted() {
             // 用于计算所有项目的总高度；
-            this.foldlist = this.$refs.foldlist;
-            this.resize();
+            setTimeout(()=> {
+                this.foldlist = this.$refs.foldlist;
+                this.childCount = [].slice.call(this.foldlist.querySelectorAll('.tal-fold-list-item')).length;
+                this.resize();
+            },20)
         },
         updated() {
-            this.child = [].slice.call(this.foldlist.querySelectorAll('.tal-fold-list-item')).length;
+            this.childCount = [].slice.call(this.foldlist.querySelectorAll('.tal-fold-list-item')).length;
         },
         methods: {
             fold() {
                 if (this.isClose) {
                     this.top = this.foldlist.offsetTop;
                     // 遮挡层的高度等于内容的的总高度
-                    this.boxHeight = this.foldlist.offsetHeight;
+                    this.boxHeight = (this.foldlist.getBoundingClientRect && this.foldlist.getBoundingClientRect().height) || this.foldlist.offsetHeight;
                 }
                 else {
                     window.scrollTo(0, this.top);
@@ -72,13 +82,11 @@
             resize() {
                 this.$nextTick(() => {
                     // 计算出其中一个项目的高
-                    let itemHeight = this.foldlist.querySelector('.tal-fold-list-item').offsetHeight;
+                    let item = this.foldlist.querySelector('.tal-fold-list-item');
+                    let itemHeight = (item.getBoundingClientRect && item.getBoundingClientRect().height) || item.offsetHeight;
 
                     let h = this.initialNumber * itemHeight;
-                    let lis = [].slice.call(this.foldlist.querySelectorAll('.tal-fold-list-item'));
-                    let len = lis.length;
-
-                    if (len > this.initialNumber) {
+                    if (this.childCount > this.initialNumber) {
                         // 如果项目的总数大于初始,计算初始高度
                         h = this.initialNumber * itemHeight;
                         this.more = true;
@@ -100,19 +108,20 @@
 <style lang="scss" scoped>
     @function remfun($number) {
         @return ($number / 75) + rem
-    }
+    };
     
     .fold-container {
         background-color: #ffffff;
         padding-bottom:remfun(30);
 
         .fold-box {
+            height: 0;
             -webkit-transition: height .8s ease;
             transition: height .8s ease;
             transform: translateZ(0);
-
+            overflow: hidden;
             &.folded {
-                overflow: hidden;
+                overflow: auto;
             }
         }
 

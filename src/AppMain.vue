@@ -1,53 +1,61 @@
 <template>
     <div class="container">
-        <div class="loop-wrap" v-if="true">
-            <loop-img :imgs="imgs" :duration="0.5" :swipeable="true" :gap-time="4"/>
-        </div>
-        <div class="t-around">
-            <button @click="itemId='t1'" class="btn">tab1</button>
-            <button @click="itemId='t2'" class="btn">tab2</button>
-            <button @click="itemId='t3'" class="btn">tab3</button>
-        </div>
-        <div class="loop-wrap">
-            <tab-box v-model="itemId">
-                <tab-item id="t1">
-                    <img src="/src/assets/img/bg1/bg2.jpg" alt="">
-                </tab-item>
-                <tab-item id="t2">
-                    <img src="/src/assets/img/bg1/bg4.jpg" alt="">
-                </tab-item>
-                <tab-item id="t3">
-                    <img src="/src/assets/img/bg1/bg3.jpg" alt="">
-                </tab-item>
-            </tab-box>
-        </div>
-        <h4>Hello World!!</h4>
-        <div class="inp-wrap">
-            屏宽：<input type="number" placeholder="屏幕宽度" v-model="screenW" class="inp"><br>
-            计算值：<input type="text" v-model="initSize" class="inp">
-            <h4>结果：{{ compuSize }}</h4>
-        </div>
-        <t-icon type="4column"/>
-        <t-popup v-model="isPopup" popup-transtion="popup-scale" popup-position="center" :to-block="true">
-            <div class="bg-white">
-                <h1>标题一</h1>
-                <h2>标题2</h2>
+        <div v-if="false">
+            <div class="loop-wrap">
+                <loop-img :imgs="imgs" :duration="0.5" :swipeable="true" :gap-time="4"/>
             </div>
-        </t-popup>
+            <div class="t-around">
+                <button @click="itemId='t1'" class="btn">tab1</button>
+                <button @click="itemId='t2'" class="btn">tab2</button>
+                <button @click="itemId='t3'" class="btn">tab3</button>
+            </div>
+            <div class="loop-wrap">
+                <tab-box v-model="itemId">
+                    <tab-item id="t1">
+                        <img src="/src/assets/img/bg1/bg2.jpg" alt="">
+                    </tab-item>
+                    <tab-item id="t2">
+                        <img src="/src/assets/img/bg1/bg4.jpg" alt="">
+                    </tab-item>
+                    <tab-item id="t3">
+                        <img src="/src/assets/img/bg1/bg3.jpg" alt="">
+                    </tab-item>
+                </tab-box>
+            </div>
+            <h4>Hello World!!</h4>
+            <div class="inp-wrap">
+                屏宽：<input type="number" placeholder="屏幕宽度" v-model="screenW" class="inp"><br>
+                计算值：<input type="text" v-model="initSize" class="inp">
+                <h4>结果：{{ compuSize }}</h4>
+            </div>
+            <t-icon type="4column"/>
+            <t-popup v-model="isPopup" popup-transtion="popup-scale" popup-position="center" :to-block="true">
+                <div class="bg-white">
+                    <h1>标题一</h1>
+                    <h2>标题2</h2>
+                </div>
+            </t-popup>
 
-        <button @click="isPopup = true" class="btn">Poppup</button>
-        <button @click="handleClick" class="btn">Toast</button>
-        <button @click="handlePicker" class="btn">Picker</button>
-        <div class="box">
-            <pro :rate="rate" :active="true" :standard="60"/>
+            <button @click="isPopup = true" class="btn">Poppup</button>
+            <button @click="handleClick" class="btn">Toast</button>
+            <button @click="handlePicker" class="btn">Picker</button>
+            <div class="box">
+                <pro :rate="rate" :active="true" :standard="60"/>
+            </div>
         </div>
+
+        <fold-list :initialNumber="3" open-text="展开" foldText="收起">
+            <fold-item v-for="i in 8" :key="i" style="border-bottom: 1px solid #eee;">
+                <span style="font-size: 24px;">{{i}}</span>
+            </fold-item>
+        </fold-list>
     </div>
 </template>
 
 <script>
     import Icon from './components/Icon';
-    import Foldlist from './components/Foldlist';
-    import Folditem from './components/Folditem';
+    import foldList from './components/Foldlist';
+    import foldItem from './components/Folditem';
     // 弹窗
     import Popup from './components/Popup';
     import Toast from './components/Toast';
@@ -121,8 +129,8 @@
         },
         components: {
             't-icon': Icon,
-            't-foldlist': Foldlist,
-            't-folditem': Folditem,
+            foldList,
+            foldItem,
             't-popup': Popup,
             pro,
             loopImg,
