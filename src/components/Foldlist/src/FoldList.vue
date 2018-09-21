@@ -98,8 +98,7 @@
                     // 如果列表项目的总数大于初始数目,计算初始高度
                     if (this.childCount > this.initialNumber) {
                         this.more = true;
-                        this.$refs.foldbox.setAttribute('style', 'height: '+ this.initHeight +'px;');
-
+                        this.boxHeight = this.initHeight;
                         // 首次展示没有动画效果
                         let timerActive = setTimeout(() => {
                             this.isActive = true;
