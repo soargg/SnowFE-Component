@@ -96,8 +96,10 @@
         mounted() {
             // 一张图片时什么都不做；
             this.wrap = this.$refs.wrap;
-            this.stepLen = this.wrap.offsetWidth;
-            window.addEventListener('resize', () => { this.stepLen = this.wrap.offsetWidth; }, false);
+            this.stepLen = (this.wrap.getBoundingClientRect && this.wrap.getBoundingClientRect().width) || this.wrap.offsetWidth;
+            window.addEventListener('resize', () => { 
+                this.stepLen = (this.wrap.getBoundingClientRect && this.wrap.getBoundingClientRect().width) || this.wrap.offsetWidth;
+            }, false);
             this.$nextTick(() => {
                 this.transitionEnd();
                 if (this.count <= 1) return;

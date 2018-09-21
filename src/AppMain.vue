@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div v-if="false">
+        <div v-if="true">
             <div class="loop-wrap">
                 <loop-img :imgs="imgs" :duration="0.5" :swipeable="true" :gap-time="4"/>
             </div>
