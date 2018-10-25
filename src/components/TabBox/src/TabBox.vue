@@ -1,13 +1,13 @@
 <template>
-    <div class="snow-tab-box">
+    <div class="snow-tab-box" 
+        @touchstart="touchStart($event)"
+        @touchmove.prevent="touchMove($event)"
+        @touchend="touchEnd($event)">
         <div class="snow-tab-wrap"
             :style="{
                 'transform': 'translate('+ distance +'px, 0)',
                 'transition-duration': duration +'s'
             }"
-            @touchstart="touchStart($event)"
-            @touchmove.prevent="touchMove($event)"
-            @touchend="touchEnd($event)"
             ref="wrap">
             <slot />
         </div>
