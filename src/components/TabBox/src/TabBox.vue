@@ -55,8 +55,8 @@
             }
         },
         mounted() {
-            this.stepLen = this.$refs.wrap.offsetWidth;
-            window.addEventListener('resize', () => { this.stepLen = this.$refs.wrap.offsetWidth; }, false);
+            this.getStep();
+            window.addEventListener('resize', () => { this.getStep()}, false);
             this.count = this.$refs.wrap.childElementCount;
             // 获取初始索引
             this.index = this.arrayFindIndx(this.$children, (item) => {return item.id === this.currentActive;});
@@ -108,6 +108,13 @@
             },
             getPoint(e) {// 默认以第一个手指的位置计算
                 return e.touches ? e.touches[0] : e;
+            },
+            getStep() { // 获取步长
+                if (this.$refs.wrap) {
+                    this.stepLen = this.$refs.wrap.getBoundingClientRect ?
+                        this.$refs.wrap.getBoundingClientRect().width :
+                        this.$refs.wrap.offsetWidth;
+                }
             },
             arrayFindIndx(arr, callBack) {
                 let index = 0;
