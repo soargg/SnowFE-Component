@@ -84,6 +84,13 @@ var _ = {
         } else {
             return {};
         }
+    },
+
+    parseJSON(json) {
+        try { 
+            return eval(`(function() { return ${json} })()`);
+        } catch (error) {
+        }
     }
 }
 
